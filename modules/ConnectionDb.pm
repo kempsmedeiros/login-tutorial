@@ -5,9 +5,9 @@ use warnings;
 use DBI;
 
 
-my $db = 'DBI:mysql:sorteiodetimes';
-my $user = 'kemps';
-my $password = 'root';
+my $db = '';
+my $user = '';
+my $password = '';
 
 
 sub new {
