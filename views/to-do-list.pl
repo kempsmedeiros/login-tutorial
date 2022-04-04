@@ -57,6 +57,7 @@ print <<HTML
                     \$scope.title = "My Daily Tasks";
                     \$scope.tarefas = [];
                     \$scope.newTask = "";
+                    \$scope.isEditing = false;
 
                     \$scope.adicionarTask = function () {
                         \$http.get('../routes/TarefasRoute.cgi?function=create&tarefa=' + \$scope.newTask + '&idUsuario=' + \$scope.idUsuarioAtivo)
@@ -82,6 +83,30 @@ print <<HTML
                         });
                     };
 
+                    \$scope.getTaskById = function (idTask) {
+                        \$http.get('../routes/TarefasRoute.cgi?function=getById&editedId=' + idTask)
+                        .then(function(res) {
+                        \$scope.tarefaEditedObject = res.data[0];
+                        \$scope.tarefaEdited = res.data[0].tarefa;
+                        console.log(\$scope.tarefaEditedObject);
+                        });
+                    };
+
+                    \$scope.EditarTask = function (idTask) {
+                        \$scope.isEditing = true;
+                        \$scope.getTaskById(idTask);
+                        
+                    };
+
+                    \$scope.atualizarTask = function () {
+                        \$http.get('../routes/TarefasRoute.cgi?function=updateById&id=' + \$scope.tarefaEditedObject.id + '&tarefa=' + \$scope.tarefaEdited + '&idUsuario=' + \$scope.tarefaEditedObject.idUsuario)
+                        .then(function(res) {
+                        console.log(res);
+                        \$scope.carregarTasks();
+                        \$scope.isEditing = false;
+                         
+                        });
+                    }
                     
 
                 }]);
@@ -94,11 +119,16 @@ print <<HTML
                 <h1 class="mt-5">{{title}}</h1>
                 <form class="mt-5">
 
-                    
+
                     <input type="text" id="newTask" placeholder="Cadastre uma nova tarefa..." class="form-control mb-3"
-                        ng-model="newTask" />
-                    <a class="btn btn-success mb-5" ng-click="adicionarTask()">
+                        ng-model="newTask" ng-show=!isEditing />
+                    <input id="taskEdited" type="text" class="form-control mb-3"
+                        ng-show=isEditing ng-model=tarefaEdited />
+                    <a class="btn btn-success mb-5" ng-click="adicionarTask()" ng-show=!isEditing>
                         Adicionar
+                    </a>
+                    <a class="btn btn-success mb-5" ng-click="atualizarTask()" ng-show=isEditing>
+                        Editar
                     </a>
                 </form>
             </header>
@@ -112,7 +142,7 @@ print <<HTML
                     </tr>
                     <tr ng-repeat="tarefa in tarefas">
                         <td>{{tarefa.tarefa}}</td>
-                        <td><a class="btn btn-primary">Edit</a></td>
+                        <td><a class="btn btn-primary" ng-click='EditarTask(tarefa.id)'>Edit</a></td>
                         <td><a class="btn btn-danger" ng-click='deletarTask(tarefa.id)'>Delete</a></td>
 
                         <!--<td><a class='btn btn-primary' href='Views/edit-aluno.pl?editedId={{aluno.id}}'>Edit</a></td>

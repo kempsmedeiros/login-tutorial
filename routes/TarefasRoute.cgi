@@ -88,12 +88,12 @@ if( $function eq "create" ) {
       
 };
 
-# if( $function eq "updateById" ) {
-#     my $newAluno = createAlunoWithData();
-#     my $rowsAffecteds = $newAluno->updateById($id);
-#     printHeader($rowsAffecteds, $returnUpdateSucessJson);
-    
-# };
+if( $function eq "updateById" ) {
+    my $newTarefa = createTarefaWithData();
+    my $rowsAffecteds = $newTarefa->updateById($id);
+    printHeader($rowsAffecteds, $returnUpdateSucessJson);
+    # print $cgi->header();
+};
 
 if ( $function eq "deleteById") {
     my $newTarefa = TarefasRule->new();
@@ -114,14 +114,14 @@ if ( $function eq "getAll") {
     
 };
 
-# if ( $function eq "getById") {
-#     my $newAluno = createAlunoWithData();
-#     my $result = $newAluno->getById($editedId);
-#     my $cgi = CGI->new;
-#     print $cgi->header(
-#         -type   => 'application/json',
-#         -status => 200,
-#     );
-#     print $result;
+if ( $function eq "getById") {
+    my $newTarefa = TarefasRule->new();
+    my $result = $newTarefa->getById($editedId);
+    my $cgi = CGI->new;
+    print $cgi->header(
+        -type   => 'application/json',
+        -status => 200,
+    );
+    print $result;
 
-# };
+};

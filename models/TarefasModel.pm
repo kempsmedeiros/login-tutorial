@@ -47,7 +47,7 @@ sub getAll {
 
 sub getById {
     my ($self, $id_passed) = @_;
-    my $query = "SELECT id, nome, email, senha FROM tarefas WHERE id=?";
+    my $query = "SELECT id, tarefa, idUsuario FROM tarefas WHERE id=?";
     my $stateHandler = $database->prepare($query);
     $stateHandler->execute($id_passed);
     # $database->disconnect();
@@ -56,12 +56,13 @@ sub getById {
 
 sub updateById {
     my ($self, $id_passed) = @_;
-    my $query = "UPDATE tarefas SET nome=?, email=?, senha=? WHERE id=?";
+    my $query = "UPDATE tarefas SET tarefa=? WHERE id=?";
     my $stateHandler = $database->prepare($query);
-    $stateHandler->execute($self->{nome}, $self->{matricula}, $self->{telefone}, $self->{id});
+    $stateHandler->execute($self->{tarefa}, $id_passed);
     $database->disconnect();
     my $rowsAffecteds = $stateHandler->rows;    
     return $rowsAffecteds;
+    # return $self->{tarefa};
     
 }
 

@@ -5,9 +5,9 @@ use warnings;
 use DBI;
 
 
-my $db = '';
-my $user = '';
-my $password = '';
+my $db = 'DBI:mysql:todolist';
+my $user = 'kemps';
+my $password = 'root';
 
 
 sub new {
