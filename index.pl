@@ -6,7 +6,6 @@ my $cgi = CGI->new;
 
 print $cgi->header();
 
-
 print <<HTML 
 <!DOCTYPE html>
     <html lang="en" ng-app="appLogin">
@@ -38,35 +37,30 @@ print <<HTML
         </style>
         <script>
             angular.module('appLogin', ['ngCookies'])
-                .controller('appLoginCtrl', ['\$cookies', '\$scope', function (\$cookies, \$scope) {
-                    \$scope.usuarios = [{
-                            nome: "Kemps",
-                            email: "kempsmm\@gmail.com",
-                            senha: "1234"
-                        },
-                        {
-                            nome: "Calleri",
-                            email: "calleri\@gmail.com",
-                            senha: "456"
-                        },
-                        {
-                            nome: "Rigoni",
-                            email: "rigoni\@gmail.com",
-                            senha: "789"
-                        }
-                    ];
+                .controller('appLoginCtrl', ['\$cookies', '\$scope', '\$http', function (\$cookies, \$scope, \$http) {
+                    \$scope.usuarios = [];
                     \$scope.form = {
                         email: '',
                         password: ''
-                    };\
+                    };
+
+                    \$scope.carregarUsuarios = function () {
+                        \$http.get('routes/UsuarioRoute.cgi?function=getAll')
+                            .then(function(res) {
+                            \$scope.usuarios = res.data;
+                            });
+                    };
+                    
+                    \$scope.carregarUsuarios();
+
                     \$scope.login = function (passwordPassed) {
                         let password = passwordPassed;
-                        let passwordVerify = \$scope.usuarios.filter(function (usuario) {
+                        let usuarioEncontrado = \$scope.usuarios.filter(function (usuario) {
                             return usuario.senha == password;
                         });
-                        if (passwordVerify.length > 0 && passwordVerify[0].email == \$scope.form.email) {
-                            \$cookies.put('usuario', 'logado');
-                            window.location.href = "views/list.pl";
+                        if (usuarioEncontrado.length > 0 && usuarioEncontrado[0].email == \$scope.form.email) {
+                            \$cookies.put('usuario', usuarioEncontrado[0].id);
+                            window.location.href = "views/usuarios-list.pl";
                         }
                     };
                 }]);
@@ -103,7 +97,8 @@ print <<HTML
                             <div class="form-group form-check">
                             </div>
                         </form>
-                        <a class="btn btn-primary" ng-click="login(form.password)">Entrar</a>
+                        <a class="btn btn-success" ng-click="login(form.password)">Entrar</a>
+                        <a class="btn btn-primary ml-2" href="views/usuarios-crud.pl">Cadastrar Usuário</a>
                     </div>
                 </div>
             </div>

@@ -31,14 +31,22 @@ print <<HTML
                             window.location.href = "../index.pl";
                         }
                     };
+                    \$scope.logout = function (){
+                      \$cookies.remove('usuario', { path: '/cgi-bin/login-tutorial' });
+                       window.location.href = "../index.pl";
+                    };
                     \$scope.verificarLogin();
+
                     \$scope.title = "My List";
                 }]);
         </script>
     </head>
 
     <body ng-controller="appListCtrl">
-        <h1>{{title}}</h1>
+        <div class="container">
+            <h1>{{title}}</h1>
+            <a class="btn btn-danger" ng-click="logout()">SAIR</a>
+        </div>
     </body>
 
     </html>
