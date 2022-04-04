@@ -60,7 +60,7 @@ print <<HTML
                         });
                         if (usuarioEncontrado.length > 0 && usuarioEncontrado[0].email == \$scope.form.email) {
                             \$cookies.put('usuario', usuarioEncontrado[0].id);
-                            window.location.href = "views/usuarios-list.pl";
+                            window.location.href = "views/to-do-list.pl";
                         }
                     };
                 }]);
@@ -68,7 +68,6 @@ print <<HTML
     </head>
 
     <body ng-controller="appLoginCtrl">
-        <!--color green: #63FF75-->
         <script src="https://cdn.jsdelivr.net/npm/jquery\@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
         </script>

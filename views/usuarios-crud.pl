@@ -36,9 +36,7 @@ print <<HTML
                         email: "",
                         senha: ""
                     }
-                    \$scope.cadastrarUsuario = function () {
-                        console.log(\$scope.formUsuario);
-                    
+                    \$scope.cadastrarUsuario = function () {                    
                         \$http.get('../routes/UsuarioRoute.cgi?function=create&nome=' + \$scope.formUsuario.nome + '&email=' + \$scope.formUsuario.email + '&senha=' + \$scope.formUsuario.senha)
                         .then(function(res) {
                             console.log(res);
