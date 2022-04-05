@@ -1,0 +1,11 @@
+Falta fazer:
+
+() Validação se ja existe um usuario com esse email cadastrado
+() Validação de login (usuario nao encontrado)
+() Validação de login (senha nao confere)
+() Criação de uma navbar
+() Colocar na navbar o nome do usuário logado
+() Confirmação ao deletar uma tarefa
+() focus no input para cadastrar tarefa
+() focus no input para alterar tarefa
+() fazer deploy

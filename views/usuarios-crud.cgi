@@ -40,7 +40,7 @@ print <<HTML
                         \$http.get('../routes/UsuarioRoute.cgi?function=create&nome=' + \$scope.formUsuario.nome + '&email=' + \$scope.formUsuario.email + '&senha=' + \$scope.formUsuario.senha)
                         .then(function(res) {
                             console.log(res);
-                        window.location.href = "../index.pl";
+                        window.location.href = "../index.cgi";
                         });
                     
                     };
@@ -66,7 +66,7 @@ print <<HTML
                         <input type="password" class="form-control" id="password" ng-model="formUsuario.senha">
                     </div>
                     <a class="btn btn-primary" ng-click="cadastrarUsuario()">Cadastrar</a>
-                    <a class="btn btn-danger" href="../index.pl">Cancelar</a>
+                    <a class="btn btn-danger" href="../index.cgi">Cancelar</a>
                 </form>
             </div>
         </div>

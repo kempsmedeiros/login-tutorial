@@ -6,8 +6,8 @@ use DBI;
 
 
 my $db = 'DBI:mysql:todolist';
-my $user = '';
-my $password = '';
+my $user = 'kemps';
+my $password = 'root';
 
 
 sub new {

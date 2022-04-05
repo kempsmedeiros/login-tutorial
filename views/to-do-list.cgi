@@ -33,22 +33,22 @@ print <<HTML
                     \$scope.verificarLogin = function () {
                         let usuarioLogado = \$cookies.get('usuario');
                         if (!usuarioLogado) {
-                            window.location.href = "../index.pl";
+                            window.location.href = "../index.cgi";
                         } else {
                             \$scope.idUsuarioAtivo = usuarioLogado;
                         }
                     };
                     \$scope.logout = function (){
                       \$cookies.remove('usuario', { path: '/cgi-bin/login-tutorial' });
-                       window.location.href = "../index.pl";
+                       window.location.href = "../index.cgi";
                     };
                     \$scope.verificarLogin();
 
                     \$scope.carregarTasks = function () {
                         \$http.get('../routes/TarefasRoute.cgi?function=getAll&idUsuario=' + \$scope.idUsuarioAtivo)
                             .then(function(res) {
-                            //\$scope.usuarios = res.data;
                             \$scope.tarefas = res.data;
+                          
                             });
                     };
 
@@ -88,14 +88,14 @@ print <<HTML
                         .then(function(res) {
                         \$scope.tarefaEditedObject = res.data[0];
                         \$scope.tarefaEdited = res.data[0].tarefa;
-                        console.log(\$scope.tarefaEditedObject);
                         });
                     };
 
                     \$scope.EditarTask = function (idTask) {
+                        document.getElementById("taskEdited").focus();
                         \$scope.isEditing = true;
                         \$scope.getTaskById(idTask);
-                        
+                                               
                     };
 
                     \$scope.atualizarTask = function () {
@@ -104,7 +104,6 @@ print <<HTML
                         console.log(res);
                         \$scope.carregarTasks();
                         \$scope.isEditing = false;
-                         
                         });
                     }
                     
@@ -144,9 +143,6 @@ print <<HTML
                         <td>{{tarefa.tarefa}}</td>
                         <td><a class="btn btn-primary" ng-click='EditarTask(tarefa.id)'>Edit</a></td>
                         <td><a class="btn btn-danger" ng-click='deletarTask(tarefa.id)'>Delete</a></td>
-
-                        <!--<td><a class='btn btn-primary' href='Views/edit-aluno.pl?editedId={{aluno.id}}'>Edit</a></td>
-                        <td><a class='btn btn-danger' ng-click='deletar(aluno.id)'>Delete</a></td>-->
                     </tr>
                 </table>
                 <a class="btn btn-danger" ng-click="logout()">SAIR</a>

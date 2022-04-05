@@ -53,14 +53,14 @@ print <<HTML
                     
                     \$scope.carregarUsuarios();
 
-                    \$scope.login = function (passwordPassed) {
-                        let password = passwordPassed;
+                    \$scope.login = function (emailPassed) {
+                        let email = emailPassed;
                         let usuarioEncontrado = \$scope.usuarios.filter(function (usuario) {
-                            return usuario.senha == password;
+                            return usuario.email == email;
                         });
-                        if (usuarioEncontrado.length > 0 && usuarioEncontrado[0].email == \$scope.form.email) {
+                        if (usuarioEncontrado.length > 0 && usuarioEncontrado[0].senha == \$scope.form.password) {
                             \$cookies.put('usuario', usuarioEncontrado[0].id);
-                            window.location.href = "views/to-do-list.pl";
+                            window.location.href = "views/to-do-list.cgi";
                         }
                     };
                 }]);
@@ -96,8 +96,8 @@ print <<HTML
                             <div class="form-group form-check">
                             </div>
                         </form>
-                        <a class="btn btn-success" ng-click="login(form.password)">Entrar</a>
-                        <a class="btn btn-primary ml-2" href="views/usuarios-crud.pl">Cadastrar Usuário</a>
+                        <a class="btn btn-success" ng-click="login(form.email)">Entrar</a>
+                        <a class="btn btn-primary ml-2" href="views/usuarios-crud.cgi">Cadastrar Usuário</a>
                     </div>
                 </div>
             </div>
